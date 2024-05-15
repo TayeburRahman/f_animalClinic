@@ -31,6 +31,11 @@ export default function SelectionBar() {
         width: '100%',
         maxWidth: 300,
         bgcolor: '#c3dfd6',
+        borderRadius: '5px',
+        display: {
+          xs: 'none',
+          lg: 'flex'
+        }
       }}
     >
       <nav aria-label="main mailbox folders">

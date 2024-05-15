@@ -10,11 +10,7 @@ function App() {
   return (
     <>
       {showNavBar && (
-        <NavBar>
-          <Link to="/homepage">Homepage</Link>
-          <Link to="/createuser">Sign Up</Link>
-          <Link to="/login">Login</Link>
-        </NavBar>
+        <NavBar />
       )}
       {!showNavBar && <VetMainBar />}
       <div className="page-content">
