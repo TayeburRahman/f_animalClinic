@@ -115,7 +115,7 @@ export function UserList() {
 
 
   return (
-      <div className="card">
+      <div className="card" style={{ width: "100%" }} >
         <div className="card-header text-center fs-4" style={{ display: 'flex', justifyContent: 'space-between' }}>
           <span>User List</span>
           <div style={{ marginLeft: 'auto' }}>
@@ -124,7 +124,7 @@ export function UserList() {
                 placeholder="Search Name"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ width: '185px', height: '30px' }}
+                style={{ width: '185px', height: '30px', padding: '5px', fontSize: '15px' }}
             />
           </div>
         </div>
@@ -144,7 +144,7 @@ export function UserList() {
                   <tr key={user.id}>
                     <td>{user.firstname} {user.surname}</td>
                     <td>{user.email}</td>
-                    <td>
+                    <td style={{ display: 'flex', gap: '5px' }}>
                       <button className="btn btn-primary" onClick={() => editUser(user.id)}>Edit</button>
                       <button className="btn btn-danger" onClick={() => deleteUser(user.id)}>Delete</button>
                     </td>

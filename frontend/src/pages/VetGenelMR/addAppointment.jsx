@@ -120,11 +120,7 @@ export function AddAppointment() {
     };
 
     return (
-        <div className='d-flex flex-row'>
-            <div>
-                <SelectionBar/>
-            </div>
-
+        <div style={{ display: 'flex', width: '100%' }}>
 
             <div className="card flex-grow-1">
                 <div className="card-header text-center fs-4">Add Appointment</div>

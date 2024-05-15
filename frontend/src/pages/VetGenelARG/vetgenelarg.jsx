@@ -20,7 +20,7 @@ function VetGenelARG() {
     <div>
       <h1>Veterinary Vaccine Appointments History</h1>
       <div style={containerStyle}>
-        <SelectionBar style={selectionBarStyle} />
+
         <PastVaccineAppointments style ={pastVaccineAppointmentsStyle} />
       </div>
     </div>

@@ -31,14 +31,14 @@ function VetMainPage() {
 }
 
 export default VetMainPage;*/
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import './vetmainpage.css';
 import { UserList } from './components/UserList';
 import { VaccineScheduleList } from './components/VaccineScheduleList';
-import {Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 
 const userData = [
@@ -50,7 +50,7 @@ const userData = [
 
 function VetMainPage() {
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const [newUser, setNewUser] = useState({
     firstName: '',
@@ -65,7 +65,7 @@ function VetMainPage() {
 
   useEffect(() => {
     axios.get("http://localhost:8080/api/users/customers")
-        .then(response => setUsers(response.data))
+      .then(response => setUsers(response.data))
   }, []);
 
 
@@ -80,9 +80,9 @@ function VetMainPage() {
   };
 
 
-  return(
-  <div className="main-container">
-  <div className="left-menu">
+  return (
+    <div className="main-container">
+      {/* <div className="left-menu">
     <div className="menu-box">
         <Link to="/VetGenelHastaKabul">Patient Admission</Link>
       </div>
@@ -112,8 +112,8 @@ function VetMainPage() {
     <h1>Vet Main Page</h1>
       <div className='add-user-form'>
         <Button type="button" onClick={handleAddUser}>Create User</Button>
-      </div>
-   {/*} <div>
+      </div> */}
+      {/*} <div>
       {userData.map(user => (
         <div key={user.id} className="customer-card">
           <h2>{user.name}</h2>
@@ -122,11 +122,12 @@ function VetMainPage() {
         ))}
       </div> */}
 
-      <UserList />
 
-  </div>
-</div>
-);
+
+      {/* </div> */}
+        <UserList />
+    </div>
+  );
 }
 
 export default VetMainPage;

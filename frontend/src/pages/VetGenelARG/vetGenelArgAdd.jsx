@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function VetGenelArgAdd() {
     const [result, setNewResult] = useState({
@@ -26,7 +26,7 @@ function VetGenelArgAdd() {
     const [animals, setAnimals] = useState([]);
     const navigate = useNavigate();
     const handleInputChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
 
         if (name === 'vaccinationTime') {
             setNewResult((prevData) => ({
@@ -92,7 +92,7 @@ function VetGenelArgAdd() {
 
     const handleChangeCustomer = (e) => {
         const customerId = +e.target.value;
-        result.customerId = customerId; 
+        result.customerId = customerId;
         axios.get(`http://localhost:8080/api/animals/owner/${customerId}`)
             .then(response => {
                 setAnimals(response.data);
@@ -112,13 +112,12 @@ function VetGenelArgAdd() {
     };
 
     return (
-        <div className="container">
-            <div className="col-lg-6 offset-lg-3 col-sm-8 offset-sm-2">
-                <form className="card">
-                    <div className="text-center card-header">
-                        <h1 style={{ color: '#6c9286' }}>Vaccine Add</h1>
-                    </div>
-                    <div className="card-body">
+        <div style={{ display: 'flex', width: '100%' }}>
+
+            <div className="card flex-grow-1">
+                <div className="card-header text-center fs-4">Vaccine Add</div>
+                <div className="card-body">
+                    <form>
                         <div className="mb-3">
                             <label htmlFor="Veterenerian" className="form-label">Veterenerian</label>
                             <select name='veterinarianId' onChange={handleChangeVeterenerian}>
@@ -154,12 +153,12 @@ function VetGenelArgAdd() {
                         <div className="mb-3">
                             <label htmlFor="Appointment_Date" className="form-label">Appointment Date</label>
                             <input type="date" className="form-control" id="Appointment_Date" name="vaccinationDate"
-                                   value={result.vaccinationDate} onChange={handleInputChange} required/>
+                                value={result.vaccinationDate} onChange={handleInputChange} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Appointment_Time" className="form-label">Appointment Time</label>
                             <input type="time" className="form-control" id="Appointment_Time" name="vaccinationTime"
-                                   value={result.vaccinationTime} onChange={handleInputChange} required/>
+                                value={result.vaccinationTime} onChange={handleInputChange} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="id" className="form-label">
@@ -180,10 +179,10 @@ function VetGenelArgAdd() {
                         >
                             Add
                         </button>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
+        </div >
     );
 }
 
