@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {useEffect, useState} from 'react';
-import {useLocation, useNavigate} from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import SelectionBar from '@/shared/components/SelectionBar';
 import axios from 'axios';
 
@@ -39,7 +39,7 @@ const VetGenelTahlil = () => {
 
             <div className='d-flex flex-row'>
 
-                <div><SelectionBar/></div>
+                {/* <div><SelectionBar/></div> */}
 
 
                 <div className='flex-grow-1'>
@@ -47,28 +47,28 @@ const VetGenelTahlil = () => {
                     <div>
                         <table className='table table-responsive'>
                             <thead>
-                            <tr>
-                                <th>Veterinarian</th>
-                                <th scope='col'>Customer</th>
-                                <th>Animal</th>
-                                <th scope='col'>Test Date</th>
-                                <th scope='col'>Test Description</th>
-                                <th scope='col'>Test Status</th>
-                            </tr>
-                            {results.map((result) => (
-                                <tr key={result.id}>
-                                    <td>{result?.veterinarian?.firstname} - {result?.veterinarian?.surname}</td>
-                                    <td>{result?.customer?.firstname} - {result?.customer?.surname}</td>
-                                    <td>{result?.animal?.name}</td>
-                                    <td>{result.testDate}</td>
-                                    <td>{result.testDescription}</td>
-                                    <td>
-                  <span className="badge rounded-pill text-bg-primary">
-                    {result.testStatus}
-                  </span>
-                                    </td>
+                                <tr>
+                                    <th>Veterinarian</th>
+                                    <th scope='col'>Customer</th>
+                                    <th>Animal</th>
+                                    <th scope='col'>Test Date</th>
+                                    <th scope='col'>Test Description</th>
+                                    <th scope='col'>Test Status</th>
                                 </tr>
-                            ))}
+                                {results.map((result) => (
+                                    <tr key={result.id}>
+                                        <td>{result?.veterinarian?.firstname} - {result?.veterinarian?.surname}</td>
+                                        <td>{result?.customer?.firstname} - {result?.customer?.surname}</td>
+                                        <td>{result?.animal?.name}</td>
+                                        <td>{result.testDate}</td>
+                                        <td>{result.testDescription}</td>
+                                        <td>
+                                            <span className="badge rounded-pill text-bg-primary">
+                                                {result.testStatus}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                ))}
                             </thead>
                         </table>
                     </div>

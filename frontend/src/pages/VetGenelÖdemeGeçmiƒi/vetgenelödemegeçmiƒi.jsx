@@ -26,7 +26,7 @@ const PaymentHistory = () => {
             <div className='d-flex flex-row'>
 
 
-                <SelectionBar/>
+                {/* <SelectionBar/> */}
                 <div className='flex-grow-1'>
                     <table className='table table-striped'>
                         <thead>
