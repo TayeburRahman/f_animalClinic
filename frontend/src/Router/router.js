@@ -14,14 +14,14 @@ import { AddAppointment } from "../pages/VetGenelMR/addAppointment.jsx";
 import VetGenelMR from "../pages/VetGenelMR/vetgenelmr.jsx";
 import VetGenelMRG from "../pages/VetGenelMRG/vetgenelmrg.jsx";
 import VetGenelTahlil from "../pages/VetGenelTahlil/vetgeneltahlil.jsx";
-import VetGenelÖdemeGeçmişi from "../pages/VetGenelÖdemeGeçmişi/vetgenelödemegeçmişi.jsx";
+import VetGenelÖdemeGeçmişi from "../pages/VetGenelÖdemeGeçmiƒi/VetGenelÖdemeGeçmiƒi.jsx";
 import VetHasta from "../pages/VetHasta/vethasta";
 import VetLaboratory from "../pages/VetLaboratory/vetlaboratory.jsx";
 import CreateUser from "../pages/VetMainPage/createuser";
 import VetMainPage from "../pages/VetMainPage/vetmainpage.jsx";
 import VetProfilBilgileri from "../pages/VetProfilBilgileri/vetprofilbilgileri.jsx";
-import VetÇıkış from "../pages/VetÇıkış/vetçıkış.jsx";
-import VetŞifreDeğiştirme from "../pages/VetŞifreDeğiştirme/vetşifredeğiştirme.jsx";
+import VetÇıkış from "../pages/VetÇìkìƒ/vetçìkìƒ.jsx";
+import VetŞifreDeğiştirme from "../pages/Vet₧ifreDeºiƒtirme/vetƒifredeºiƒtirme.jsx";
 
 
 
@@ -101,10 +101,10 @@ export default createBrowserRouter([
                 path:"/vetgenelödemegeçmişi",
                 Component: VetGenelÖdemeGeçmişi,
             },
-            {
-                path:"/vetgeneral",
-                Component: VetGeneral,
-            },
+            // {
+            //     path:"/vetgeneral",
+            //     Component: VetGeneral,
+            // },
             {
                 path:"/vethasta",
                 Component: VetHasta,
