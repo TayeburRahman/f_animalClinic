@@ -1,5 +1,4 @@
 import React from 'react';
-import SelectionBar from '@/shared/components/SelectionBar';
 import PastVaccineAppointments  from '../VetMainPage/components/PastVaccineAppointments';
 
 const containerStyle = {

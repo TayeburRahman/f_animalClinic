@@ -14,6 +14,7 @@ const LabResults = () => {
         const fetchData = async () => {
             const response = await axios.get('http://localhost:8080/api/lab-tests')
             setResults(response.data)
+            console.log(response.data)
         };
         fetchData();
     }, []);
@@ -40,13 +41,13 @@ const LabResults = () => {
                             <th scope='col'>Test Status</th>
                         </tr>
                         {results.map((result) => (
-                            <tr key={result.id}>
-                                <td>{result?.veterinarian?.user?.firstname} - {result?.veterinarian?.user?.surname}</td>
-                                <td>{result?.customer?.user?.firstname} - {result?.customer?.user?.surname}</td>
+                            <tr key={result?.id}>
+                                <td>{result?.veterinarian?.firstname} - {result?.veterinarian?.surname}</td>
+                                <td>{result?.customer?.firstname} - {result?.customer?.surname}</td>
                                 <td>{result?.animal?.name}</td>
                                 <td>{result.testDate}</td>
-                                <td>{result.labTestType.testTypeName}</td>
-                                <td>{result.testDescription}</td>
+                                <td>{result?.labTestType?.testTypeName}</td>
+                                <td>{result?.testDescription}</td>
                                 <td>
                   <span className="badge rounded-pill text-bg-primary">
                     {result.testStatus}

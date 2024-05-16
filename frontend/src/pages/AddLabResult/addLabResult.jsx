@@ -8,7 +8,6 @@ function AddLabResult() {
         testDate: '',
         testDescription: '',
         veterinarianId: '',
-        customer: '',
         animalId: '',
         testStatus: ''
     });
@@ -44,9 +43,13 @@ function AddLabResult() {
         const fetchVeterinarian = async () => {
             axios.get('http://localhost:8080/api/users/vets')
                 .then(response => {
-                    console.log(response.data)
-
-                    setVeterinarians(response.data);
+                    if (response.data.length > 0) {
+                        setVeterinarians(response.data);
+                        setNewResult(prevResult => ({
+                            ...prevResult,
+                            veterinarianId: response.data[0].id
+                        }));
+                    }
                 })
                 .catch(error => {
                     console.log(error);
@@ -57,8 +60,9 @@ function AddLabResult() {
             axios.get('http://localhost:8080/api/users/customers')
                 .then(response => {
                     console.log(response.data)
-
-                    setCustomers(response.data);
+                    if (response.data.length > 0) {
+                        setCustomers(response.data);
+                    }
                 })
                 .catch(error => {
                     console.log(error);

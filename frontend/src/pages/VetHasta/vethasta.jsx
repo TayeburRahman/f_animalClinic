@@ -40,8 +40,8 @@ const PetCard = () => {
 
                     {petData?.map((pet) => (
                         <Col sx={{
-                        }} id={pet.id}>
-                            <Card key={pet.id} sx={{
+                        }} id={pet?.id}>
+                            <Card key={pet?.id} sx={{
                                 margin: '10px',
                                 maxWidth: '500px',
                                 backgroundColor: '#c3dfd6',
@@ -52,13 +52,13 @@ const PetCard = () => {
                             }}>
                                 <CardContent>
                                     <Typography variant="h6" color="#004d40" gutterBottom>
-                                        Username: {pet.owner.user.firstname} - {pet.owner.user.surname}
+                                        Username: {pet?.owner?.user?.firstname} - {pet?.owner?.user?.surname}
                                     </Typography>
                                     <Typography variant="h6" color="#004d40" gutterBottom>
-                                        Pet Name: {pet.name}
+                                        Pet Name: {pet?.name}
                                     </Typography>
                                     <Typography variant="h6" color="#004d40" gutterBottom>
-                                        Pet Type: {pet.type.animalType}
+                                        Pet Type: {pet?.type?.animalType}
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
@@ -86,20 +86,20 @@ const PetCard = () => {
                             <div className="modal-body">
                                 {selectedPet && (
                                     <div className='d-flex flex-column'>
-                                        <h1>Pet Name: {selectedPet.name}</h1>
-                                        <h6>Owner Name: {selectedPet.owner.user.firstname}</h6>
-                                        <h6>Owner Surname: {selectedPet.owner.user.surname}</h6>
-                                        <small className='text-black'> Animal Type: {selectedPet.type.animalType}</small>
-                                        <small>Age: {selectedPet.age} </small>
-                                        <small>Age Category: {selectedPet.ageCategory} </small>
-                                        <small>Birth Date: {selectedPet.birthDate} </small>
-                                        <small>Blood Type: {selectedPet.bloodType} </small>
-                                        <small>Breed Name: {selectedPet.breed.breedName}</small>
-                                        <small>Chip Number: {selectedPet.chipNumber} </small>
-                                        <small>Color: {selectedPet.color} </small>
-                                        <small>Gender: {selectedPet.gender} </small>
-                                        <small>Length: {selectedPet.length}</small>
-                                        <small>Weight: {selectedPet.weight} </small>
+                                        <h1>Pet Name: {selectedPet?.name}</h1>
+                                        <h6>Owner Name: {selectedPet?.owner?.user?.firstname}</h6>
+                                        <h6>Owner Surname: {selectedPet?.owner?.user?.surname}</h6>
+                                        <small className='text-black'> Animal Type: {selectedPet?.type?.animalType}</small>
+                                        <small>Age: {selectedPet?.age} </small>
+                                        <small>Age Category: {selectedPet?.ageCategory} </small>
+                                        <small>Birth Date: {selectedPet?.birthDate} </small>
+                                        <small>Blood Type: {selectedPet?.bloodType} </small>
+                                        <small>Breed Name: {selectedPet?.breed?.breedName}</small>
+                                        <small>Chip Number: {selectedPet?.chipNumber} </small>
+                                        <small>Color: {selectedPet?.color} </small>
+                                        <small>Gender: {selectedPet?.gender} </small>
+                                        <small>Length: {selectedPet?.length}</small>
+                                        <small>Weight: {selectedPet?.weight} </small>
                                     </div>
                                 )}
                             </div>

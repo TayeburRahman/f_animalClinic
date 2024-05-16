@@ -139,7 +139,7 @@ export default function VetGenelHastaKabul() {
     return (
         <div style={{ display: 'flex', width: '100%' }}>
             <div className="card flex-grow-1">
-                <div className="card-header text-center fs-4">Add Appointment</div>
+                <div className="card-header text-center fs-4">Patient Admission</div>
                 <div className="card-body">
                     <form onSubmit={handleSubmit}>
                         <label className="form-label">

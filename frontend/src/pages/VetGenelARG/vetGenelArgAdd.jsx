@@ -7,9 +7,9 @@ function VetGenelArgAdd() {
     const [result, setNewResult] = useState({
         vaccinationDate: '',
         vaccinationDescription: '',
-        veterinarianId: 0,
-        customerId: 0,
-        animalId: 0,
+        veterinarianId: 2,
+        customerId: 2,
+        animalId: 2,
         vaccinationStatus: '',
         vaccinationTime: ''
     })
