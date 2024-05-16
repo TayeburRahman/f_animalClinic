@@ -26,6 +26,7 @@ export default function MobileSelectionBar() {
         { name: 'Vaccine Add', path: '/vetgenelargadd' },
         { name: 'Laboratory Tests', path: '/vetgeneltahlil' },
         { name: 'Laboratory Result Add', path: '/addLabResult' },
+        { name: 'Payment', path: '/payment' },
         { name: 'Payment History', path: '/vetgenelödemegeçmişi' }];
 
     const settings = [

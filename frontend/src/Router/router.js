@@ -24,6 +24,7 @@ import VetProfilBilgileri from "../pages/VetProfilBilgileri/vetprofilbilgileri.j
 import Layout from "@/shared/components/Layout";
 import VetÇıkış from "../pages/VetÇìkìƒ/vetçìkìƒ";
 import VetŞifreDeğiştirme from "../pages/Vet₧ifreDeºiƒtirme/vetƒifredeºiƒtirme";
+import Payment from "@/pages/Payment/Payment";
 
 
 
@@ -133,6 +134,10 @@ export default createBrowserRouter([
               {
                 path: "/vetşifredeğiştirme",
                 Component: VetŞifreDeğiştirme,
+              },
+              {
+                path: "/payment",
+                Component: Payment,
               },
             //   {
             //     path: "/vetçıkış",

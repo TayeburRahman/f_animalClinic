@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 function VetGenelArgAdd() {
     const statues = [
@@ -24,20 +25,47 @@ function VetGenelArgAdd() {
     const [veterinarians, setVeterinarians] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [animals, setAnimals] = useState([]);
+    const [appointments, setAppoinments] = useState([]);
+
     const navigate = useNavigate();
+
+    function timeInMinutes(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
+
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-
         if (name === 'vaccinationTime') {
+            const selectedTimeInMinutes = timeInMinutes(value);
+            const selectedDaysAppointments = appointments.filter((appointment) => appointment.vaccinationDate === result.vaccinationDate)
+            var available = true;
+            selectedDaysAppointments.forEach((app) => {
+                const appStartTimeInMin = timeInMinutes(app.vaccinationTime);
+                const appEndTimeInMin = timeInMinutes(app.vaccinationTime) + 60;
+
+                if (appStartTimeInMin <= selectedTimeInMinutes && selectedTimeInMinutes < appEndTimeInMin) {
+                    available = false;
+                }
+            })
+            if (!available) { return toast.error("Time not Available!") };
             setNewResult((prevData) => ({
                 ...prevData,
                 [name]: value + ':00',
             }));
         } else {
-            setNewResult((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
+            if (name === 'vaccinationDate') {
+                setNewResult((prevData) => ({
+                    ...prevData,
+                    vaccinationTime: '',
+                    [name]: value
+                }));
+            } else {
+                setNewResult((prevData) => ({
+                    ...prevData,
+                    [name]: value,
+                }));
+            }
         }
     };
 
@@ -87,25 +115,32 @@ function VetGenelArgAdd() {
                     console.log(error);
                 })
         }
+
+        const fetchAppointments = async () => {
+            const response = await axios.get("http://localhost:8080/api/vaccinations");
+            setAppoinments(response.data);
+        }
+
         fetchVeterinarian();
         fetchCustomer();
+        fetchAppointments();
     }, []);
 
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/animals/owner/${customers[0]?.id}`)
-        .then(response => {
-            setAnimals(response.data);
-            if (response.data.length > 0) {
-                setNewResult((prevData) => ({
-                    ...prevData,
-                    animalId: response.data[0].id
-                }));
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            .then(response => {
+                setAnimals(response.data);
+                if (response.data.length > 0) {
+                    setNewResult((prevData) => ({
+                        ...prevData,
+                        animalId: response.data[0].id
+                    }));
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }, [customers])
 
     const handleChangeVeterenerian = (e) => {

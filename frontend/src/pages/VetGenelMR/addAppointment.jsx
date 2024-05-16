@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import toast from 'react-hot-toast';
 
 const appointmentTypes = ['EMERGENCY', 'CHECKUP', 'SURGERY', 'CONSULTATION', 'VACCINATION'];
 const statues = [
@@ -14,6 +15,8 @@ export function AddAppointment() {
     const [customer, setCustomer] = useState([]);
     const [veterinarian, setVetenerian] = useState([]);
     const today = new Date().toISOString().split('T')[0];
+
+    const [appointments, setAppoinments] = useState([]);
 
     const [formData, setFormData] = useState({
         date: '',
@@ -53,41 +56,75 @@ export function AddAppointment() {
             }
         };
 
+        const fetchAppointments = async () => {
+            const response = await axios.get("http://localhost:8080/api/appointments");
+            setAppoinments(response.data);
+        }
+
         fetchData();
+        fetchAppointments();
     }, []);
+
+    console.log(appointments)
 
     useEffect(() => {
         axios.get(`http://localhost:8080/api/animals/owner/${customer[0]?.id}`)
-        .then(response => {
-            setAnimal(response.data);
-            if (response.data.length > 0) {
-                setFormData((prevData) => ({
-                    ...prevData,
-                    animalId: response.data[0].id
-                }));
-            }
-        })
-        .catch(error => {
-            console.log(error);
-        })
+            .then(response => {
+                setAnimal(response.data);
+                if (response.data.length > 0) {
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        animalId: response.data[0].id
+                    }));
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
     }, [customer])
-    
 
-
-
+    function timeInMinutes(timeString) {
+        const [hours, minutes] = timeString.split(':').map(Number);
+        return hours * 60 + minutes;
+    }
     const handleChange = (e) => {
         const { name, value } = e.target;
-
+        
         if (name === 'dateTime') {
+            const selectedTimeInMinutes = timeInMinutes(value);
+            const selectedDaysAppointments = appointments.filter((appointment) => appointment.appointmentDate === formData.date)
+            var available = true;
+
+            selectedDaysAppointments.forEach((app) => {
+                const appStartTimeInMin = timeInMinutes(app.appointmentTime);
+                const appEndTimeInMin = timeInMinutes(app.appointmentTime) + 60;
+
+                if (appStartTimeInMin <= selectedTimeInMinutes && selectedTimeInMinutes < appEndTimeInMin) {
+                    available = false;
+                }
+            })
+
+
+            if (!available) { return toast.error("Time not Available!") };
+
             setFormData((prevData) => ({
                 ...prevData,
                 [name]: value + ':00',
             }));
         } else {
-            setFormData((prevData) => ({
-                ...prevData,
-                [name]: value,
-            }));
+
+            if (name === 'date') {
+                setFormData((prevData) => ({
+                    ...prevData,
+                    dateTime: '',
+                    [name]: value
+                }));
+            } else {
+                setFormData((prevData) => ({
+                    ...prevData,
+                    [name]: value,
+                }));
+            }
         }
 
     };

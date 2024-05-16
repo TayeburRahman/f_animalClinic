@@ -4,6 +4,7 @@ import { Outlet, useNavigate } from "react-router-dom";
 import VetMainBar from "./VetMainBar";
 import CustomBottomNavigation from "./BottomNav";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 
 function Layout() {
@@ -30,6 +31,7 @@ function Layout() {
                 <Outlet />
             </div>
             <CustomBottomNavigation />
+            <Toaster />
         </div>
     );
 }

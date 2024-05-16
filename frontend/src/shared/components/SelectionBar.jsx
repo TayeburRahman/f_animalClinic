@@ -14,6 +14,7 @@ const pages = [
   { name: 'Vaccine Add', path: '/vetgenelargadd' },
   { name: 'Laboratory Tests', path: '/vetgeneltahlil' },
   { name: 'Laboratory Result Add', path: '/addLabResult' },
+  { name: 'Payment', path: '/payment' },
   { name: 'Payment History', path: '/vetgenelödemegeçmişi' }];
 
 export default function SelectionBar() {
