@@ -372,8 +372,10 @@ function VetMainBar() {
 
                             ))}
                             <NavDropdown.Item onClick={() => {
-                                localStorage.removeItem('authUser');
-                                localStorage.removeItem('user-token');
+                                localStorage.removeItem("token");
+                                localStorage.removeItem("username");
+                                localStorage.removeItem("role");
+                                localStorage.removeItem("userId");
                                 navigate('/login');
                             }} >
                                 Logout

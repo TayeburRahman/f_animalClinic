@@ -16,6 +16,8 @@ function AddLabResult() {
         animalId: '',
         testStatus: statues[0]
     });
+    const today = new Date().toISOString().split('T')[0];
+
     const [veterinarians, setVeterinarians] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [animals, setAnimals] = useState([]);
@@ -163,7 +165,7 @@ function AddLabResult() {
                         <div className="mb-3">
                             <label htmlFor="Appointment_Date" className="form-label">Test Date</label>
                             <input type="date" className="form-control" id="Appointment_Date" name="testDate"
-                                value={result.testDate} onChange={handleInputChange} required />
+                                value={result.testDate} onChange={handleInputChange} min={today} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="id" className="form-label">

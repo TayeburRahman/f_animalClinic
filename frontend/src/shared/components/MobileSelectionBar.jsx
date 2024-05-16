@@ -63,8 +63,10 @@ export default function MobileSelectionBar() {
                     <Typography variant="button">{localStorage.getItem("username")}</Typography>
 
                     <IconButton onClick={() => {
-                        localStorage.removeItem('authUser');
-                        localStorage.removeItem('user-token');
+                        localStorage.removeItem("token");
+                        localStorage.removeItem("username");
+                        localStorage.removeItem("role");
+                        localStorage.removeItem("userId");
                         navigate('/login');
                     }}>
                         <LogoutIcon />
@@ -81,7 +83,7 @@ export default function MobileSelectionBar() {
 
     return (
         <div>
-            <IconButton sx={{ display: { lg: "none" } }} onClick={toggleDrawer(true)}><MenuIcon/></IconButton>
+            <IconButton sx={{ display: { lg: "none" } }} onClick={toggleDrawer(true)}><MenuIcon /></IconButton>
             <Drawer open={open} onClose={toggleDrawer(false)}>
                 {DrawerList}
             </Drawer>

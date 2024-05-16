@@ -22,8 +22,8 @@ import CreateUser from "../pages/VetMainPage/createuser";
 import VetMainPage from "../pages/VetMainPage/vetmainpage.jsx";
 import VetProfilBilgileri from "../pages/VetProfilBilgileri/vetprofilbilgileri.jsx";
 import Layout from "@/shared/components/Layout";
-// import VetÇıkış from "../pages/VetÇıkış/vetçıkış.jsx";
-// import VetŞifreDeğiştirme from "../pages/VetŞifreDeğiştirme/vetşifredeğiştirme.jsx";
+import VetÇıkış from "../pages/VetÇìkìƒ/vetçìkìƒ";
+import VetŞifreDeğiştirme from "../pages/Vet₧ifreDeºiƒtirme/vetƒifredeºiƒtirme";
 
 
 
@@ -130,10 +130,10 @@ export default createBrowserRouter([
                 path: "/vetprofilbilgileri",
                 Component: VetProfilBilgileri,
               },
-            //   {
-            //     path: "/vetşifredeğiştirme",
-            //     Component: VetŞifreDeğiştirme,
-            //   },
+              {
+                path: "/vetşifredeğiştirme",
+                Component: VetŞifreDeğiştirme,
+              },
             //   {
             //     path: "/vetçıkış",
             //     Component: VetÇıkış,

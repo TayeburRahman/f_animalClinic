@@ -4,7 +4,6 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
 import axios from "axios";
-import { Col, Container, Row } from "react-bootstrap";
 import { Grid } from '@mui/material';
 
 const PetCard = () => {
@@ -16,7 +15,10 @@ const PetCard = () => {
     useEffect(() => {
         const fetchData = async () => {
             const response = await axios.get('http://localhost:8080/api/animals');
-            setPetData(response.data);
+            if(response?.data?.length > 0) {
+                const reversedPetData = response.data.reverse();
+                setPetData(reversedPetData);
+            }
             console.log(response.data)
         };
 

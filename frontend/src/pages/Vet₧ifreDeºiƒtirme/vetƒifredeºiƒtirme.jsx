@@ -31,7 +31,7 @@ const VetŞifreDeğiştirme = () => {
 
 
     return (
-        <div>
+        <div style={{ width: "100%", padding: "10px" }}>
             <h1 style={{color: '#6c9286'}}>Animal Clinic Pro</h1>
             <form>
                 <div className="mb-2">

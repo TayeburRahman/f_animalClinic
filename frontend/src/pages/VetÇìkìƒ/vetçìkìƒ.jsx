@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 const VetÇıkış = (props) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogout = () => {
-      const navigate = useNavigate();
-      localStorage.removeItem('authUser');
-      localStorage.removeItem('user-token');
+      localStorage.removeItem("token");
+      localStorage.removeItem("username");
+      localStorage.removeItem("role");
+      localStorage.removeItem("userId");
       navigate('/login');
   };
 

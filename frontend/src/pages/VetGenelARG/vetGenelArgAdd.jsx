@@ -19,6 +19,7 @@ function VetGenelArgAdd() {
         vaccinationTime: ''
     })
 
+    const today = new Date().toISOString().split('T')[0];
 
     const [veterinarians, setVeterinarians] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -179,7 +180,7 @@ function VetGenelArgAdd() {
                         <div className="mb-3">
                             <label htmlFor="Appointment_Date" className="form-label">Appointment Date</label>
                             <input type="date" className="form-control" id="Appointment_Date" name="vaccinationDate"
-                                value={result.vaccinationDate} onChange={handleInputChange} required />
+                                value={result.vaccinationDate} onChange={handleInputChange} min={today} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Appointment_Time" className="form-label">Appointment Time</label>
