@@ -4,18 +4,18 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function AddLabResult() {
-    const [result, setNewResult] = useState({
-        testDate: '',
-        testDescription: '',
-        veterinarianId: '',
-        animalId: '',
-        testStatus: ''
-    });
     const statues = [
         'PENDING',
         'COMPLETED',
         'CANCELLED'
     ];
+    const [result, setNewResult] = useState({
+        testDate: '',
+        testDescription: '',
+        veterinarianId: localStorage.getItem("userId"),
+        animalId: '',
+        testStatus: statues[0]
+    });
     const [veterinarians, setVeterinarians] = useState([]);
     const [customers, setCustomers] = useState([]);
     const [animals, setAnimals] = useState([]);
@@ -47,7 +47,7 @@ function AddLabResult() {
                         setVeterinarians(response.data);
                         setNewResult(prevResult => ({
                             ...prevResult,
-                            veterinarianId: response.data[0].id
+                            veterinarianId: localStorage.getItem("userId")
                         }));
                     }
                 })
@@ -71,6 +71,22 @@ function AddLabResult() {
         fetchVeterinarian();
         fetchCustomer();
     }, []);
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/animals/owner/${customers[0]?.id}`)
+        .then(response => {
+            setAnimals(response.data);
+            if (response.data.length > 0) {
+                setNewResult((prevData) => ({
+                    ...prevData,
+                    animalId: response.data[0].id
+                }));
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, [customers])
 
     const handleChangeVeterenerian = (e) => {
         console.log(e.target.value)
@@ -114,7 +130,7 @@ function AddLabResult() {
                     <form>
                         <div className="mb-3">
                             <label htmlFor="Veterenerian" className="form-label">Veterenerian</label>
-                            <select name='veterinarianId' onChange={handleChangeVeterenerian}>
+                            <select value={result.veterinarianId} name='veterinarianId' onChange={handleChangeVeterenerian} defaultValue={localStorage.getItem("userId")}>
                                 {veterinarians.map((item, index) => (
                                     <option key={index} value={item.id}>{item.firstname} {item.surname}</option>
                                 ))}
@@ -130,7 +146,7 @@ function AddLabResult() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="" className="form-label">Animal</label>
-                            <select name='animalId' onChange={handleChangeAnimal}>
+                            <select value={result.animalId} name='animalId' onChange={handleChangeAnimal}>
                                 {animals.map((item, index) => (
                                     <option key={index} value={item.id}>{item.name} - ({item.type})</option>
                                 ))}
@@ -138,7 +154,7 @@ function AddLabResult() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="status" className="form-label">Status</label>
-                            <select name='testStatus' onChange={handleInputChange}>
+                            <select value={result.testStatus} name='testStatus' onChange={handleInputChange}>
                                 {statues.map((status, index) => (
                                     <option key={index} value={status}>{status}</option>
                                 ))}

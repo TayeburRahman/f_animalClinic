@@ -1,7 +1,6 @@
-import React, { useCallback, useEffect, useState, Fragment } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import axios from 'axios';
 import './vetgenelhastakabul.css';
-import SelectionBar from '@/shared/components/SelectionBar';
 import { Button } from "react-bootstrap";
 //import Combobox from "react-widgets/Combobox";
 import { useNavigate } from "react-router-dom";
@@ -23,12 +22,13 @@ export default function VetGenelHastaKabul() {
         ageCategory: '',
         bloodType: '',
         length: 0,
-        userId: 0,
+        userId: 2,
     });
 
     const [openModal, setOpenModal] = useState(false);
     const [type, setType] = useState('');
     const navigate = useNavigate();
+    const today = new Date().toISOString().split('T')[0];
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -42,8 +42,14 @@ export default function VetGenelHastaKabul() {
 
     const getUsers = useCallback(async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/users`);
+            const response = await axios.get(`http://localhost:8080/api/users/customers`);
             setUsers(response.data);
+            if (response.data.length > 0) {
+                setAnimal(prev => ({
+                    ...prev,
+                    userId: response.data[0].id
+                }))
+            }
         } catch (error) {
             console.error("Error fetching users:", error);
         } finally {
@@ -181,7 +187,7 @@ export default function VetGenelHastaKabul() {
 
                         <label className="form-label">
                             Birth Date:
-                            <input type="date" name="birthDate" value={animal.birthDate} onChange={handleChange} required />
+                            <input type="date" name="birthDate" value={animal.birthDate} onChange={handleChange} max={today} required />
                         </label>
 
                         <label className="form-label">

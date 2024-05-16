@@ -15,6 +15,7 @@ import VetGenelMR from "../pages/VetGenelMR/vetgenelmr.jsx";
 import VetGenelMRG from "../pages/VetGenelMRG/vetgenelmrg.jsx";
 import VetGenelTahlil from "../pages/VetGenelTahlil/vetgeneltahlil.jsx";
 // import VetGenelÖdemeGeçmişi from "../pages/VetGenelÖdemeGeçmişi/vetgenelödemegeçmişi.jsx";
+import PaymentHistory from "../pages/VetGenelÖdemeGeçmiƒi/vetgenelödemegeçmiƒi";
 import VetHasta from "../pages/VetHasta/vethasta";
 import VetLaboratory from "../pages/VetLaboratory/vetlaboratory.jsx";
 import CreateUser from "../pages/VetMainPage/createuser";
@@ -105,10 +106,10 @@ export default createBrowserRouter([
                 path:"/addLabResult",
                 Component: AddLabResult,
             },
-            // {
-            //     path:"/vetgenelödemegeçmişi",
-            //     Component: VetGenelÖdemeGeçmişi,
-            // },
+            {
+                path:"/vetgenelödemegeçmişi",
+                Component: PaymentHistory,
+            },
             // {
             //     path:"/vetgeneral",
             //     Component: VetGeneral,

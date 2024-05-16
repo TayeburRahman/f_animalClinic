@@ -171,14 +171,14 @@
 //     const handleOpenNavMenu = (event) => {
 //         setAnchorElNav(event.currentTarget);
 //     };
-//     const handleOpenUserMenu = (event) => {
-//         setAnchorElUser(event.currentTarget);
-//     };
 
 //     const handleCloseNavMenu = () => {
 //         setAnchorElNav(null);
 //     };
 
+//     const handleOpenUserMenu = (event) => {
+//         setAnchorElUser(event.currentTarget);
+//     };
 //     const handleCloseUserMenu = () => {
 //         setAnchorElUser(null);
 //     };
@@ -337,6 +337,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import { useNavigate } from "react-router-dom";
+import MobileSelectionBar from "./MobileSelectionBar";
 
 function VetMainBar() {
 
@@ -345,14 +346,15 @@ function VetMainBar() {
         <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
             <Container>
                 <Navbar.Brand href="/vetmainpage">
-                        <Avatar
-                            variant='square'
-                            alt="AnimalClinicPro Logo"
-                            src={logo}
-                            sx={{ width: { xs: 100, sm: 100, md: 100 }, height: { xs: 70, sm: 70, md: 70 } }}
-                        />
+                    <Avatar
+                        variant='square'
+                        alt="AnimalClinicPro Logo"
+                        src={logo}
+                        sx={{ width: { xs: 100, sm: 100, md: 100 }, height: { xs: 70, sm: 70, md: 70 } }}
+                    />
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <MobileSelectionBar />
+                {/* <Navbar.Toggle aria-controls="responsive-navbar-nav" /> */}
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         {pages.map((page) => (
@@ -360,6 +362,7 @@ function VetMainBar() {
                         ))}
 
                     </Nav>
+
                     <Nav>
                         <NavDropdown title={localStorage.getItem("username")} id="collapsible-nav-dropdown">
                             {settings.map((setting) => (

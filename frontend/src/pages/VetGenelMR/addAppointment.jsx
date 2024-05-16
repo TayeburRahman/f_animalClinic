@@ -1,7 +1,6 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import SelectionBar from "@/shared/components/SelectionBar.jsx";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const appointmentTypes = ['EMERGENCY', 'CHECKUP', 'SURGERY', 'CONSULTATION', 'VACCINATION'];
 const statues = [
@@ -14,19 +13,20 @@ export function AddAppointment() {
     const [animal, setAnimal] = useState([]);
     const [customer, setCustomer] = useState([]);
     const [veterinarian, setVetenerian] = useState([]);
+    const today = new Date().toISOString().split('T')[0];
 
     const [formData, setFormData] = useState({
         date: '',
         dateTime: '',
-        appointmentType: '',
+        appointmentType: appointmentTypes[0],
         description: '',
-        appointmentStatus: '',
+        appointmentStatus: statues[0],
         animalId: 0,
         customerId: 0,
-        veterinarianId: 0,
+        veterinarianId: localStorage.getItem("userId"),
     });
 
-    const navigate=useNavigate();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,27 +39,44 @@ export function AddAppointment() {
                         customerId: customerResponse.data[0].id
                     }));
                 }
-    
+
                 const veterinarianResponse = await axios.get("http://localhost:8080/api/users/vets");
                 setVetenerian(veterinarianResponse.data);
                 if (veterinarianResponse.data.length > 0) {
                     setFormData((prevData) => ({
                         ...prevData,
-                        veterinarianId: veterinarianResponse.data[0].id
+                        veterinarianId: localStorage.getItem("userId")
                     }));
                 }
             } catch (error) {
                 console.log(error);
             }
         };
-    
+
         fetchData();
     }, []);
 
- 
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/animals/owner/${customer[0]?.id}`)
+        .then(response => {
+            setAnimal(response.data);
+            if (response.data.length > 0) {
+                setFormData((prevData) => ({
+                    ...prevData,
+                    animalId: response.data[0].id
+                }));
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, [customer])
+    
+
+
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
 
         if (name === 'dateTime') {
             setFormData((prevData) => ({
@@ -128,7 +145,7 @@ export function AddAppointment() {
                     <form onSubmit={handleSubmit}>
                         <div className="mb-3">
                             <label htmlFor="Customer" className="form-label">Customer</label>
-                            <select name='customerId' onChange={handleChangeCustomer}>
+                            <select value={formData.customerId} name='customerId' onChange={handleChangeCustomer}>
                                 {customer.map((item, index) => (
                                     <option key={index} value={item.id}>{item.firstname} {item.surname}</option>
                                 ))}
@@ -136,7 +153,7 @@ export function AddAppointment() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="" className="form-label">Animal</label>
-                            <select name='animalId' onChange={handleChangeAnimal}>
+                            <select value={formData.animalId} name='animalId' onChange={handleChangeAnimal}>
                                 {animal.map((item, index) => (
                                     <option key={index} value={item.id}>{item.name} - ({item.type})</option>
                                 ))}
@@ -144,7 +161,7 @@ export function AddAppointment() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Veterenerian" className="form-label">Veterenerian</label>
-                            <select name='veterinarianId' onChange={handleChangeVeterenerian}>
+                            <select value={formData.veterinarianId} name='veterinarianId' onChange={handleChangeVeterenerian} defaultValue={localStorage.getItem("userId")}>
                                 {veterinarian.map((item, index) => (
                                     <option key={index} value={item.id}>{item.firstname} {item.surname}</option>
                                 ))}
@@ -153,16 +170,16 @@ export function AddAppointment() {
                         <div className="mb-3">
                             <label htmlFor="Appointment_Date" className="form-label">Appointment Date</label>
                             <input type="date" className="form-control" id="Appointment_Date" name="date"
-                                   value={formData.date} onChange={handleChange} required/>
+                                value={formData.date} onChange={handleChange} min={today} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Appointment_Time" className="form-label">Appointment Time</label>
                             <input type="time" className="form-control" id="Appointment_Time" name="dateTime"
-                                   value={formData.dateTime} onChange={handleChange} required/>
+                                value={formData.dateTime} onChange={handleChange} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Appointment_Type" className="form-label">Appointment Type</label>
-                            <select name="appointmentType" id="appointmentType" onChange={handleChange}>
+                            <select value={formData.appointmentType} name="appointmentType" id="appointmentType" onChange={handleChange}>
                                 <option value="">Select Type</option>
                                 {appointmentTypes.map((type, index) => (
                                     <option key={index} value={type}>{type}</option>
@@ -173,12 +190,12 @@ export function AddAppointment() {
                             <label htmlFor="Appointment_Description" className="form-label">Appointment
                                 Description</label>
                             <input type="text" className="form-control" id="Appointment_Description"
-                                   name="description" value={formData.description}
-                                   onChange={handleChange} required/>
+                                name="description" value={formData.description}
+                                onChange={handleChange} required />
                         </div>
                         <div className="mb-3">
                             <label htmlFor="status" className="form-label">Status</label>
-                            <select name='appointmentStatus' onChange={handleChange}>
+                            <select value={formData.appointmentStatus} name='appointmentStatus' onChange={handleChange}>
                                 {statues.map((status, index) => (
                                     <option key={index} value={status}>{status}</option>
                                 ))}

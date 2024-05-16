@@ -4,22 +4,21 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 function VetGenelArgAdd() {
-    const [result, setNewResult] = useState({
-        vaccinationDate: '',
-        vaccinationDescription: '',
-        veterinarianId: 2,
-        customerId: 2,
-        animalId: 2,
-        vaccinationStatus: '',
-        vaccinationTime: ''
-    })
-
-    const appointmentTypes = ['EMERGENCY', 'CHECKUP', 'SURGERY', 'CONSULTATION', 'VACCINATION'];
     const statues = [
         'PENDING',
         'COMPLETED',
         'CANCELLED'
     ]
+    const [result, setNewResult] = useState({
+        vaccinationDate: '',
+        vaccinationDescription: '',
+        veterinarianId: localStorage.getItem("userId"),
+        customerId: '',
+        animalId: '',
+        vaccinationStatus: statues[0],
+        vaccinationTime: ''
+    })
+
 
     const [veterinarians, setVeterinarians] = useState([]);
     const [customers, setCustomers] = useState([]);
@@ -60,7 +59,12 @@ function VetGenelArgAdd() {
             axios.get('http://localhost:8080/api/users/vets')
                 .then(response => {
                     setVeterinarians(response.data)
-                    result.veterinarianId = veterinarians[0].id;
+                    if (response.data.length > 0) {
+                        setFormData((prevData) => ({
+                            ...prevData,
+                            veterinarianId: localStorage.getItem("userId")
+                        }));
+                    }
                 })
                 .catch(error => {
                     console.log(error)
@@ -71,7 +75,12 @@ function VetGenelArgAdd() {
             axios.get('http://localhost:8080/api/users/customers')
                 .then(response => {
                     setCustomers(response.data);
-                    result.customerId = customers[0].id;
+                    if (response.data.length > 0) {
+                        setFormData((prevData) => ({
+                            ...prevData,
+                            customerId: response.data[0].id
+                        }));
+                    }
                 })
                 .catch(error => {
                     console.log(error);
@@ -80,6 +89,23 @@ function VetGenelArgAdd() {
         fetchVeterinarian();
         fetchCustomer();
     }, []);
+
+
+    useEffect(() => {
+        axios.get(`http://localhost:8080/api/animals/owner/${customers[0]?.id}`)
+        .then(response => {
+            setAnimals(response.data);
+            if (response.data.length > 0) {
+                setNewResult((prevData) => ({
+                    ...prevData,
+                    animalId: response.data[0].id
+                }));
+            }
+        })
+        .catch(error => {
+            console.log(error);
+        })
+    }, [customers])
 
     const handleChangeVeterenerian = (e) => {
         const veterinarianId = +e.target.value;
@@ -120,7 +146,7 @@ function VetGenelArgAdd() {
                     <form>
                         <div className="mb-3">
                             <label htmlFor="Veterenerian" className="form-label">Veterenerian</label>
-                            <select name='veterinarianId' onChange={handleChangeVeterenerian}>
+                            <select value={result.veterinarianId} name='veterinarianId' onChange={handleChangeVeterenerian} defaultValue={localStorage.getItem("userId")}>
                                 {veterinarians.map((item, index) => (
                                     <option key={index} value={item.id}>{item.firstname} {item.surname}</option>
                                 ))}
@@ -128,7 +154,7 @@ function VetGenelArgAdd() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="Customer" className="form-label">Customer</label>
-                            <select name='customerId' onChange={handleChangeCustomer}>
+                            <select value={result.customerId} name='customerId' onChange={handleChangeCustomer}>
                                 {customers.map((item, index) => (
                                     <option key={index} value={item.id}>{item.firstname} {item.surname}</option>
                                 ))}
@@ -136,7 +162,7 @@ function VetGenelArgAdd() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="" className="form-label">Animal</label>
-                            <select name='animalId' onChange={handleChangeAnimal}>
+                            <select value={result.animalId} name='animalId' onChange={handleChangeAnimal}>
                                 {animals.map((item, index) => (
                                     <option key={index} value={item.id}>{item.name} - ({item.type})</option>
                                 ))}
@@ -144,7 +170,7 @@ function VetGenelArgAdd() {
                         </div>
                         <div className="mb-3">
                             <label htmlFor="status" className="form-label">Status</label>
-                            <select name='vaccinationStatus' onChange={handleInputChange}>
+                            <select value={result.vaccinationStatus} name='vaccinationStatus' onChange={handleInputChange}>
                                 {statues.map((status, index) => (
                                     <option key={index} value={status}>{status}</option>
                                 ))}

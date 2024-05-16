@@ -2,6 +2,7 @@ import SelectionBar from "./SelectionBar";
 import "./Layout.css";
 import { Outlet } from "react-router-dom";
 import VetMainBar from "./VetMainBar";
+import CustomBottomNavigation from "./BottomNav";
 
 function Layout({ children }) {
     return (
@@ -12,6 +13,7 @@ function Layout({ children }) {
                 <SelectionBar />
                 <Outlet />
             </div>
+            <CustomBottomNavigation />
         </div>
     );
 }
