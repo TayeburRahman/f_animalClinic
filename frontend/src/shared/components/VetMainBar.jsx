@@ -318,6 +318,7 @@
 
 import logo from "@/assets/AnimalClinicProNoBg.png";
 import { Avatar } from "@mui/material";
+import "./nav.css";
 
 const pages = [
     { name: 'General', link: 'vetgenelhastakabul' },
@@ -342,21 +343,23 @@ function VetMainBar() {
 
     const navigate = useNavigate();
     return (
-        <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-            <Container>
+        <Navbar collapseOnSelect expand="lg" className="" style={{
+            background: "rgb(195 206 199)"
+        }}>
+            <Container className="" style={{ background: "none" }}>
                 <Navbar.Brand href="/vetmainpage">
-                        <Avatar
-                            variant='square'
-                            alt="AnimalClinicPro Logo"
-                            src={logo}
-                            sx={{ width: { xs: 100, sm: 100, md: 100 }, height: { xs: 70, sm: 70, md: 70 } }}
-                        />
+                    <Avatar
+                        variant='square'
+                        alt="AnimalClinicPro Logo"
+                        src={logo}
+                        sx={{ width: { xs: 100, sm: 100, md: 100 }, height: { xs: 70, sm: 70, md: 70 } }}
+                    />
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="me-auto">
                         {pages.map((page) => (
-                            <Nav.Link href={page.link}>{page.name}</Nav.Link>
+                            <Nav.Link className="nav_link" href={page.link}>{page.name}</Nav.Link>
                         ))}
 
                     </Nav>

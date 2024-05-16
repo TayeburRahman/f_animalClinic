@@ -1,6 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import './App.css';
 import { NavBar } from "./shared/components/NavBar";
+import VetMainBar from "./shared/components/VetMainBar";
 
 function App() {
   const location = useLocation();
@@ -11,7 +12,7 @@ function App() {
       {showNavBar && (
         <NavBar />
       )}
-      {/* {!showNavBar && <VetMainBar />} */}
+      {!showNavBar && <VetMainBar />}
       <div className="page-content">
         <Outlet />
       </div>
